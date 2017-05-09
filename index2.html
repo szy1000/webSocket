@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>webSocket</title>
+</head>
+<body>
+	<input type="text" id="text" placeholder="Your message there.">
+	<button>Send hello</button>
+	<div id="log"></div>
+	<script>
+		// var sock = new WebSocket("wss://echo.websocket.org");
+		var sock = new WebSocket("ws://localhost:5001");
+
+		var log = document.getElementById('log');
+		// sock.onopen = function(event) {
+		// 	alert('WebStocket connected successfully');
+
+		// 	setTimeout(function(){
+		// 		sock.send("Hey there");
+		// 	}, 1000);
+		// };
+
+		sock.onmessage = function(event) {
+			console.log(event);
+			log.innerHTML += event.data+"<br/>";
+		};
+
+		document.querySelector('button').onclick = function() {
+			var  txt = document.getElementById('text').value;
+			sock.send(txt);
+		};
+	</script>
+</body>
+</html>
